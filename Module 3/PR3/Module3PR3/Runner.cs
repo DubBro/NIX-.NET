@@ -14,10 +14,10 @@ namespace Module3PR3
         /// <summary>
         /// Starts the program.
         /// </summary>
-        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public static async Task StartAsync()
+        public static void Start()
         {
-            await messageBox.OpenAsync();
+            var task = messageBox.OpenAsync();
+            Task.WhenAll(task).GetAwaiter().GetResult();
 
             if (messageBox.State == State.Ok)
             {
