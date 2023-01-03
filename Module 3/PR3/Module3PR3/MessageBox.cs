@@ -38,13 +38,14 @@ namespace Module3PR3
 
             Random random = new Random();
 
-            if (random.Next(0, 2) == 0)
+            switch (random.Next(0, 2))
             {
-                await Task.Run(() => this.CloseEvent(State.Cancel));
-            }
-            else
-            {
-                await Task.Run(() => this.CloseEvent(State.Ok));
+                case 0:
+                    await Task.Run(() => this.CloseEvent(State.Cancel));
+                    break;
+                case 1:
+                    await Task.Run(() => this.CloseEvent(State.Ok));
+                    break;
             }
         }
     }
