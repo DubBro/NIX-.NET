@@ -14,7 +14,7 @@ namespace Module3PR3
         /// </summary>
         public MessageBox()
         {
-            this.CloseEvent = this.CloseEventFunc;
+            this.CloseEvent = (State s) => this.State = s;
         }
 
         private event Action<State> CloseEvent;
@@ -45,11 +45,6 @@ namespace Module3PR3
             {
                 await Task.Run(() => this.CloseEvent(State.Ok));
             }
-        }
-
-        private void CloseEventFunc(State state)
-        {
-            this.State = state;
         }
     }
 }
