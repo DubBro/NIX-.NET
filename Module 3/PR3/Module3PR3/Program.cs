@@ -15,7 +15,8 @@ namespace Module3PR3
         /// <param name="args">The array of the string arguments.</param>
         public static void Main(string[] args)
         {
-            Runner.Start();
+            _ = Runner.StartAsync();
+            Console.ReadKey();
         }
     }
 }

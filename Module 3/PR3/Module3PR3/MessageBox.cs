@@ -27,15 +27,16 @@ namespace Module3PR3
         /// <summary>
         /// Open function.
         /// </summary>
-        public async void Open()
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task OpenAsync()
         {
-            Random random = new Random();
-
             Console.WriteLine("Window is opened.");
 
-            Thread.Sleep(3000);
+            await Task.Delay(3000);
 
             Console.WriteLine("Window was closed by user.");
+
+            Random random = new Random();
 
             if (random.Next(0, 2) == 0)
             {
