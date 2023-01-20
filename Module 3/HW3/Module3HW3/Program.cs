@@ -1,18 +1,7 @@
-﻿// <copyright file="Program.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
-// </copyright>
-
-namespace Module3HW3
+﻿namespace Module3HW3
 {
-    /// <summary>
-    /// Program class.
-    /// </summary>
     internal class Program
     {
-        /// <summary>
-        /// Main fucntion.
-        /// </summary>
-        /// <param name="args">The array of the string arguments.</param>
         public static void Main(string[] args)
         {
             CreateFiles();
@@ -20,10 +9,6 @@ namespace Module3HW3
             Console.WriteLine(Task.Run(() => ReadAsync()).Result);
         }
 
-        /// <summary>
-        /// Reads the text from file asynchronously.
-        /// </summary>
-        /// <returns>The task.</returns>
         public static async Task<string> ReadHelloAsync()
         {
             string path = "Hello.txt";
@@ -37,10 +22,6 @@ namespace Module3HW3
             return text;
         }
 
-        /// <summary>
-        /// Reads the text from file asynchronously.
-        /// </summary>
-        /// <returns>The task.</returns>
         public static async Task<string> ReadWorldAsync()
         {
             string path = "World.txt";
@@ -54,10 +35,6 @@ namespace Module3HW3
             return text;
         }
 
-        /// <summary>
-        /// Calls functions that read the text from file asynchronously and returns its concatenation.
-        /// </summary>
-        /// <returns>The task.</returns>
         public static async Task<string> ReadAsync()
         {
             string hello = await ReadHelloAsync();
@@ -66,9 +43,6 @@ namespace Module3HW3
             return hello + " " + world;
         }
 
-        /// <summary>
-        /// Creates files to read text from them.
-        /// </summary>
         public static void CreateFiles()
         {
             string helloPath = "Hello.txt";
