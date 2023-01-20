@@ -1,150 +1,104 @@
-﻿// <copyright file="ContactsCollection.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
-// </copyright>
+﻿using System.Collections;
+using System.Globalization;
+using Module3PR1.Contact.Interfaces;
+using Module3PR1.ContactsCollection.Interfaces;
 
 namespace Module3PR1.ContactsCollection
 {
-    using System.Collections;
-    using System.Globalization;
-    using Module3PR1.Contact.Interfaces;
-    using Module3PR1.ContactsCollection.Interfaces;
-
-    /// <summary>
-    /// ContactsCollection class.
-    /// </summary>
     public class ContactsCollection : IContactsCollection
     {
-        private IContact[] contacts;
+        private IContact[] _contacts;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ContactsCollection"/> class.
-        /// </summary>
         public ContactsCollection()
         {
-            this.contacts = Array.Empty<IContact>();
+            _contacts = Array.Empty<IContact>();
         }
 
-        /// <summary>
-        /// Gets count of contatcts.
-        /// </summary>
         public int Count
         {
             get
             {
-                return this.contacts.Length;
+                return _contacts.Length;
             }
         }
 
-        /// <summary>
-        /// Gets contact by index.
-        /// </summary>
-        /// <param name="index">Index of the contact.</param>
-        /// <returns>Contact.</returns>
         public IContact this[int index]
         {
             get
             {
-                if (index < 0 || index >= this.Count)
+                if (index < 0 || index >= Count)
                 {
                     throw new IndexOutOfRangeException();
                 }
 
-                return this.contacts[index];
+                return _contacts[index];
             }
         }
 
-        /// <summary>
-        /// Adds contact to the collection.
-        /// </summary>
-        /// <param name="contact">Contact.</param>
         public void Add(IContact contact)
         {
-            if (this.Find(contact) != null)
+            if (Find(contact) != null)
             {
                 throw new Exception("The contact with this name already exists.");
             }
 
-            var tmpContacts = new IContact[this.Count + 1];
+            var tmpContacts = new IContact[Count + 1];
 
-            for (int i = 0; i < this.Count; i++)
+            for (int i = 0; i < Count; i++)
             {
-                tmpContacts[i] = this.contacts[i];
+                tmpContacts[i] = _contacts[i];
             }
 
-            tmpContacts[this.Count] = contact;
+            tmpContacts[Count] = contact;
 
-            this.contacts = tmpContacts;
+            _contacts = tmpContacts;
 
-            this.Sort();
+            Sort();
         }
 
-        /// <summary>
-        /// Adds contact to the collection.
-        /// </summary>
-        /// <param name="name">Contact's name.</param>
-        /// <param name="phoneNumber">Contact's number.</param>
         public void Add(string name, string phoneNumber)
         {
-            this.Add(new Contact.Contact(name, phoneNumber));
+            Add(new Contact.Contact(name, phoneNumber));
         }
 
-        /// <summary>
-        /// Adds contact to the collection.
-        /// </summary>
-        /// <param name="name">Contact's name.</param>
-        /// <param name="phoneNumber">Contact's number.</param>
-        /// <param name="culture">Contact's culture.</param>
         public void Add(string name, string phoneNumber, CultureInfo culture)
         {
-            this.Add(new Contact.Contact(name, phoneNumber, culture));
+            Add(new Contact.Contact(name, phoneNumber, culture));
         }
 
-        /// <summary>
-        /// Deletes contact from the collection by name.
-        /// </summary>
-        /// <param name="name">Contact's name.</param>
         public void Delete(string name)
         {
-            if (this.Find(name) == null)
+            if (Find(name) == null)
             {
                 return;
             }
 
             int i = 0;
 
-            for (; i < this.Count; i++)
+            for (; i < Count; i++)
             {
-                if (this.contacts[i].Name == name)
+                if (_contacts[i].Name == name)
                 {
                     break;
                 }
             }
 
-            for (; i < this.Count - 1; i++)
+            for (; i < Count - 1; i++)
             {
-                this.contacts[i] = this.contacts[i + 1];
+                _contacts[i] = _contacts[i + 1];
             }
 
-            Array.Resize(ref this.contacts, this.Count - 1);
+            Array.Resize(ref _contacts, Count - 1);
         }
 
-        /// <summary>
-        /// Deletes contact from the collection.
-        /// </summary>
-        /// <param name="contact">Contact.</param>
         public void Delete(IContact contact)
         {
-            this.Delete(contact.Name);
+            Delete(contact.Name);
         }
 
-        /// <summary>
-        /// Finds contact in the collection.
-        /// </summary>
-        /// <param name="name">Contact's name.</param>
-        /// <returns>Contact if it was found or null if not.</returns>
         public IContact? Find(string name)
         {
-            foreach (var contact in this.contacts)
+            foreach (var contact in _contacts)
             {
                 if (name == contact.Name)
                 {
@@ -155,19 +109,11 @@ namespace Module3PR1.ContactsCollection
             return null;
         }
 
-        /// <summary>
-        /// Finds contact in the collection.
-        /// </summary>
-        /// <param name="contact">Contact.</param>
-        /// <returns>Contact if it was found or null if not.</returns>
         public IContact? Find(IContact contact)
         {
-            return this.Find(contact.Name);
+            return Find(contact.Name);
         }
 
-        /// <summary>
-        /// Shows all contacts on the console.
-        /// </summary>
         public void ShowAll()
         {
             int i = 1;
@@ -179,19 +125,11 @@ namespace Module3PR1.ContactsCollection
             }
         }
 
-        /// <summary>
-        /// Returns an enumerator that iterates through a collection.
-        /// </summary>
-        /// <returns>An System.Collections.IEnumerator object that can be used to iterate through the collection.</returns>
         public IEnumerator<IContact> GetEnumerator()
         {
-            return new ContactsCollectionEnumerator(this.contacts);
+            return new ContactsCollectionEnumerator(_contacts);
         }
 
-        /// <summary>
-        /// Returns an enumerator that iterates through a collection.
-        /// </summary>
-        /// <returns>An System.Collections.IEnumerator object that can be used to iterate through the collection.</returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
             throw new NotImplementedException();
@@ -199,7 +137,7 @@ namespace Module3PR1.ContactsCollection
 
         private void Sort()
         {
-            Array.Sort(this.contacts);
+            Array.Sort(_contacts);
         }
     }
 }

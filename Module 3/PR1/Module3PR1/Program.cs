@@ -1,21 +1,10 @@
-﻿// <copyright file="Program.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
-// </copyright>
+﻿using System.Globalization;
+using Module3PR1.ContactsCollection.Interfaces;
 
 namespace Module3PR1
 {
-    using System.Globalization;
-    using Module3PR1.ContactsCollection.Interfaces;
-
-    /// <summary>
-    /// Program class.
-    /// </summary>
     internal class Program
     {
-        /// <summary>
-        /// Main function.
-        /// </summary>
-        /// <param name="args">string[] type parameter.</param>
         public static void Main(string[] args)
         {
             CultureInfo culture = new CultureInfo("uk");
